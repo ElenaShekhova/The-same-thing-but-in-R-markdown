@@ -11,7 +11,7 @@
 
 <meta name="author" content="Elena Shekhova" />
 
-<meta name="date" content="2021-05-23" />
+<meta name="date" content="2021-05-24" />
 
 <title>Systematic review in R. Part 1</title>
 
@@ -351,7 +351,7 @@ pre code {
 
 <h1 class="title toc-ignore">Systematic review in R. Part 1</h1>
 <h4 class="author">Elena Shekhova</h4>
-<h4 class="date">23 May 2021</h4>
+<h4 class="date">24 May 2021</h4>
 
 </div>
 
@@ -379,7 +379,7 @@ library(metagear)</code></pre>
 </div>
 <div id="download-content-from-ncbi-databases" class="section level3">
 <h3>Download content from NCBI Databases</h3>
-<p>At this stage, <code>RISmed package</code> will be used to extract information from databases including Abstract’s text. A great guideline on how to use <code>RISmed package</code> can be found <a href="http://amunategui.github.io/pubmed-query/">here</a>.</p>
+<p>At this stage, <code>RISmed</code> package will be used to extract information from databases including Abstract’s text. A great guideline on how to use <code>RISmed package</code> can be found <a href="http://amunategui.github.io/pubmed-query/">here</a>.</p>
 <ol style="list-style-type: decimal">
 <li><p>Assign your query based on key words <code>invasive aspergillosis risk factors</code>, which are your search terms, to a variable <code>search_topic</code>.</p></li>
 <li><p>Create a variable <code>search_query</code> using <code>EUtilsSummary</code> function. The function sends the request to the database and gets all paper’s IDs that match the query. You also can specify a time frame for the search using <code>mindate</code> and <code>maxdate</code> arguments. In this example, this period ends on 12th of February 2021. To keep the results consistent, each reviewer/collaborator should specify the same period.</p></li>
