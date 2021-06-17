@@ -11,7 +11,7 @@
 
 <meta name="author" content="Elena Shekhova" />
 
-<meta name="date" content="2021-06-15" />
+<meta name="date" content="2021-06-17" />
 
 <title>Systematic review in R. Part 1</title>
 
@@ -351,7 +351,7 @@ pre code {
 
 <h1 class="title toc-ignore">Systematic review in R. Part 1</h1>
 <h4 class="author">Elena Shekhova</h4>
-<h4 class="date">15 June 2021</h4>
+<h4 class="date">17 June 2021</h4>
 
 </div>
 
@@ -492,20 +492,22 @@ summary(data_eng)</code></pre>
 <p>Studies will be screened using <code>metagear</code> package. A very detailed and easy-to-follow guide on how to use this package can be found <a href="http://lajeunesse.myweb.usf.edu/metagear/metagear_basic_vignette.html#how-to-cite">here</a>.</p>
 <p>The main aim of the screening is to include all epidemiological studies that focus on invasive aspergillosis.</p>
 <p>The exclusion criteria are following:</p>
+<ul>
+<li>one case studies</li>
+<li>laboratory research</li>
+<li>reviews</li>
+<li>studies focusing on several fungal infections (invasive fungal infection)</li>
+<li>trial pre-results</li>
+<li>systematic reviews</li>
+<li>guidelines</li>
+<li>therapeutic drug monitoring</li>
+<li>studies on various species like dogs or mice</li>
+<li>clinical investigations focusing only on pediatric patients</li>
+<li>studies on aspergilloma</li>
+<li>studies describing clinical characteristics of invasive aspergillosis</li>
+<li>publications without abstracts</li>
+</ul>
 <ol style="list-style-type: decimal">
-<li><p>one case studies</p></li>
-<li><p>laboratory research</p></li>
-<li><p>reviews</p></li>
-<li><p>studies with the focus on several fungal infections (invasive fungal infection)</p></li>
-<li><p>trial pre-results</p></li>
-<li><p>systematic reviews</p></li>
-<li><p>guidelines</p></li>
-<li><p>therapeutic drug monitoring</p></li>
-<li><p>studies on various species like dogs or mice</p></li>
-<li><p>clinical investigations focusing only om pediatric patients</p></li>
-<li><p>studies on aspergilloma</p></li>
-<li><p>studies describing clinical characteristics of invasive aspergillosis</p></li>
-<li><p>publications without abstracts</p></li>
 <li><p>Initialize screening with <code>effort_distribute function</code> and by creating a new data.frame called <code>theRefs</code>. This table will add additional columns, such as <code>STUDY_ID</code>, <code>REVIEWER</code>, and <code>INCLUDE</code> to our data.frame.</p></li>
 <li><p>Save new data.frame with <code>write.csv</code> function.</p></li>
 <li><p>Start screening with <code>abstract_screener</code> function and specify which file needs to be screen, name of a reviewer, the name of columns that will indicate the status of each publication, and also key words that can be highlighted in each abstract.</p></li>
