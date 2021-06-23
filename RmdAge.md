@@ -5,20 +5,19 @@ output:
   html_document: 
     toc: yes
     keep_md: yes
-date: "`r format(Sys.time(), '%d %B %Y')`"
+date: "23 June 2021"
 params:
   year_start: 1990-01-01
   year_end: 2021-02-12
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(fig.align = 'center', echo = TRUE)
-```
+
 
 ### Load necessary R packages 
 If libraries were not loaded before, it is necessary to install them first. 
 `metagear` library depends on `EBImage`package, which is a part of the Bioconductor repository and which can be installed via `install.packages("BiocManager"); #BiocManager::install("EBImage")` commands.
-```{r data, echo=TRUE, message = FALSE}
+
+```r
 #install.packages("RISmed")
 #install.packages("dplyr")
 #install.packages("BiocManager"); 
@@ -45,12 +44,29 @@ A great guideline on how to use `RISmed package` can be found [here]( http://amu
 
 5. By using `class` function you can see the type of object that is created by `EUtilsGet`. In this case, it is `Medline`, and package `RISmed` provides a set of useful functions that allow to interact and extract needed set of information from any `Medline` object. 
 
-```{r pressure, echo=TRUE}
+
+```r
 search_topic <- 'invasive aspergillosis risk factors'
 search_query <- EUtilsSummary(search_topic, mindate = '1990/01/01', maxdate = '2021/02/12')
 summary(search_query)
+```
+
+```
+## Query:
+## (invasive[All Fields] AND ("aspergillosis"[MeSH Terms] OR "aspergillosis"[All Fields]) AND ("risk factors"[MeSH Terms] OR ("risk"[All Fields] AND "factors"[All Fields]) OR "risk factors"[All Fields])) AND 1990/01/01[EDAT] : 2021/02/12[EDAT] 
+## 
+## Result count:  1017
+```
+
+```r
 records<- EUtilsGet(search_query)
 class(records)
+```
+
+```
+## [1] "Medline"
+## attr(,"package")
+## [1] "RISmed"
 ```
 ### Optional: create a new function to save Initials of each author 
 
@@ -60,9 +76,23 @@ When `RISmed`'s function called `Author` is used, it will save a list of all aut
 
 2. Information about authors of a paper in the list can be viewed by providing an index of this paper in the list. For instance, `11`
 
-```{r authors, echo=TRUE}
+
+```r
 author_list <- Author(records)
 author_list$`11`
+```
+
+```
+##      LastName    ForeName Initials order
+## 1      Vedula     Rahul S       RS     1
+## 2       Cheng   Matthew P       MP     2
+## 3     Ronayne Christine E       CE     3
+## 4 Farmakiotis   Dimitrios        D     4
+## 5          Ho   Vincent T       VT     5
+## 6         Koo      Sophia        S     6
+## 7       Marty Francisco M       FM     7
+## 8    Lindsley   R Coleman       RC     8
+## 9        Bold     Tyler D       TD     9
 ```
 
 To improve readability of the final table, it is better to only present first author's surname and their initials. Let's create a new function called `getFirstAuthor` that will extract only the Surname and Initials of the first author. 
@@ -71,7 +101,8 @@ In the printed data.frame, we can see that a surname can be found in the first c
 
 3. A new function is created by providing its name (like any variable), here `getFirstAuthor`; then a keyword `function`; and in the brackets the list of arguments that the function will use within. Here, it is assumed that we will pass a data.frame like above and will name the argument `authors`. First, we extract the surname and initial from the first row, and then we merge them together into one string by using `paste` function and `return` the result.
 
-```{r function, echo=TRUE}
+
+```r
 getFirstAuthor <- function (authors)
 {
   authorSurname <- authors[1,1]
@@ -81,15 +112,26 @@ getFirstAuthor <- function (authors)
 ```
 
 4. Test the function by giving it only one data.frame first (for example, data.frame displaying 11th publication):
-```{r testing, echo=TRUE}
+
+```r
 getFirstAuthor(author_list$'11')
+```
+
+```
+## [1] "Vedula, RS"
 ```
 
 5. Apply a newly created `getFirstAuthor` function to each element of the list (`lapply`) and record it into a new variable `authors`, which we need to have as a character vector for future. As `lapply` returns a list with the same length as the inputted data, we need to transform it explicitly by using `as.character`.
 
-```{r lapply, echo=TRUE}
+
+```r
 authors <- as.character(lapply(author_list, getFirstAuthor))
 head(authors, 5)
+```
+
+```
+## [1] "Vedula, RS"     "Bitterman, R"   "Duan, Y"        "Fekkar, A"     
+## [5] "Chakravarti, A"
 ```
 ### Create a data frame containing meta-data
 
@@ -103,7 +145,8 @@ head(authors, 5)
 
 5. Save your file now in `csv` format. It can be opened in Excel.
 
-```{r meta-data}
+
+```r
 data <- data.frame('TITLE'=ArticleTitle(records), 'AUTHORS'=authors, 'PMID'=PMID(records),   
                           'YEAR'=YearPubmed(records), 'DOI'=DOI(records), 
                           'JOURNAL'=MedlineTA(records), 'LANGUAGE'=Language(records),
@@ -114,8 +157,34 @@ data$ABSTRACT <- gsub(",", " ", data$ABSTRACT, fixed = TRUE)
 
 data_eng <- filter(data, LANGUAGE == "eng") 
 summary(data_eng)
-write.csv(data_eng, file = "data_eng.csv")
+```
 
+```
+##     TITLE             AUTHORS              PMID                YEAR     
+##  Length:860         Length:860         Length:860         Min.   :1992  
+##  Class :character   Class :character   Class :character   1st Qu.:2007  
+##  Mode  :character   Mode  :character   Mode  :character   Median :2012  
+##                                                           Mean   :2011  
+##                                                           3rd Qu.:2017  
+##                                                           Max.   :2021  
+##      DOI              JOURNAL            LANGUAGE           COUNTRY         
+##  Length:860         Length:860         Length:860         Length:860        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##    ABSTRACT        
+##  Length:860        
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## 
+```
+
+```r
+write.csv(data_eng, file = "data_eng.csv")
 ```
 
 ### Screen abstracts
@@ -146,7 +215,8 @@ The exclusion criteria are following:
 
 3. Start screening with `abstract_screener` function and specify which file needs to be screen, name of a reviewer, the name of columns that will indicate the status of each publication, and also key words that can be highlighted in each abstract.
 
-```{r review}
+
+```r
 #theTeam <- c("Tanmoy", "Fabian", "Alessandra")
 #theRefs_unscreened <- effort_distribute(data_eng, reviewers = theTeam, save_split = TRUE)
 #data_eng_Fab <- read.csv("effort_Fabian.csv", header = TRUE)
@@ -157,7 +227,6 @@ The exclusion criteria are following:
 theRefs <- effort_distribute(data_eng, reviewers = c("Elena"), initialize = TRUE)
 write.csv(theRefs, file = "ElenaRefs.csv")
 theRefs_unscreened <- abstract_screener("ElenaRefs.csv", aReviewer = "Elena", unscreenedColumnName = "INCLUDE", unscreenedValue = "not vetted", highlightKeywords = "aspergillosis")
-
 ```
 
 ### Citations
