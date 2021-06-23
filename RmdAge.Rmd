@@ -124,19 +124,20 @@ The main aim of the screening is to include all epidemiological studies that foc
 
 The exclusion criteria are following:
 
-1. one case studies
-2. laboratory research
-3. reviews
-4. studies with the focus on several fungal infections (invasive fungal infection)
-5. trial pre-results
-6. systematic reviews
-7. guidelines 
-8. therapeutic drug monitoring
-9. studies on various species like dogs or mice 
-10. clinical investigations focusing only om pediatric patients
-11. studies on aspergilloma
-12. studies describing clinical characteristics of invasive aspergillosis
-13. publications without abstracts
+* one case studies
+* laboratory research
+* reviews
+* studies focusing on several fungal infections (invasive fungal infection)
+* trial pre-results
+* systematic reviews
+* guidelines 
+* therapeutic drug monitoring
+* studies on various species like dogs or mice 
+* clinical investigations focusing only on pediatric patients
+* studies on aspergilloma
+* studies describing clinical characteristics of invasive aspergillosis
+* publications without abstracts
+
 
 1. Initialize screening with `effort_distribute function` and by creating a new data.frame called `theRefs`. This table will add additional columns, such as `STUDY_ID`, `REVIEWER`, and `INCLUDE` to our data.frame.
 

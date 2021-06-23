@@ -152,9 +152,9 @@ The exclusion criteria are following:
 #write.csv(theRefs_Fab, file = "EvaRefs_Fab.csv")
 #theRefs_unscreened_Fab <- abstract_screener("EvaRefs_Fab.csv", aReviewer = "Fabian", unscreenedColumnName = #"INCLUDE", unscreenedValue = "not vetted", highlightKeywords = "aspergillosis")
 
-theRefs <- effort_distribute(data_eng, reviewers = c("Elena"), initialize = TRUE)
-write.csv(theRefs, file = "ElenaRefs.csv")
-theRefs_unscreened <- abstract_screener("ElenaRefs.csv", aReviewer = "Elena", unscreenedColumnName = "INCLUDE", unscreenedValue = "not vetted", highlightKeywords = "aspergillosis")
+theRefs <- effort_distribute(data_eng, reviewers = c("Eva"), initialize = TRUE)
+write.csv(theRefs, file = "EvaRefs.csv")
+theRefs_unscreened <- abstract_screener("EvaRefs.csv", aReviewer = "Eva", unscreenedColumnName = "INCLUDE", unscreenedValue = "not vetted", highlightKeywords = "aspergillosis")
 
 ```
 
